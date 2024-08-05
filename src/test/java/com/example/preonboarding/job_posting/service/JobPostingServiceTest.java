@@ -19,6 +19,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.example.preonboarding.job_posting.dto.JobPostingCreateDto;
 
+import java.util.Optional;
+
 class JobPostingServiceTest {
 
     @Mock
@@ -107,5 +109,22 @@ class JobPostingServiceTest {
 
         // When & Then
         assertThrows(JobPostingNotFoundException.class, () -> jobPostingService.updateJobPosting(1L, updateDto));
+    }
+
+    @Test
+    void deleteJobPosting_success() {
+        JobPosting jobPosting = new JobPosting();
+        when(jobPostingRepository.findById(anyLong())).thenReturn(Optional.of(jobPosting));
+
+        jobPostingService.deleteJobPosting(1L);
+
+        verify(jobPostingRepository).delete(any(JobPosting.class));
+    }
+
+    @Test
+    void deleteJobPosting_notFound() {
+        when(jobPostingRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(JobPostingNotFoundException.class, () -> jobPostingService.deleteJobPosting(1L));
     }
 }
