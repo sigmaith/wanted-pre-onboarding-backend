@@ -2,9 +2,11 @@ package com.example.preonboarding.company.domain;
 
 import com.example.preonboarding.job_posting.domain.JobPosting;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 @Entity
 public class Company {
     @Id
@@ -12,7 +14,7 @@ public class Company {
     @Column(name = "company_id")
     private Long id;
 
-    private String companyName;
+    private String name;
     private String country;
     private String region;
 
