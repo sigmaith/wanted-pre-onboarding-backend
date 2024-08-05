@@ -1,7 +1,7 @@
 package com.example.preonboarding.job_application.domain;
 
 import com.example.preonboarding.job_posting.domain.JobPosting;
-import com.example.preonboarding.user.domain.Member;
+import com.example.preonboarding.member.domain.Member;
 import jakarta.persistence.*;
 
 @Entity

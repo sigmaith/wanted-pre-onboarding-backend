@@ -1,4 +1,4 @@
-package com.example.preonboarding.user.domain;
+package com.example.preonboarding.member.domain;
 
 import com.example.preonboarding.job_application.domain.JobApplication;
 import jakarta.persistence.*;
