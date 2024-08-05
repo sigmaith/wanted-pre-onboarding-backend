@@ -44,6 +44,13 @@ public class JobPostingService {
         logger.info("Job posting with ID {} updated successfully", id);
     }
 
+    public void deleteJobPosting(Long id) {
+        logger.debug("Deleting job posting with ID: {}", id);
+        JobPosting jobPosting = findJobPostingById(id);
+        jobPostingRepository.delete(jobPosting);
+        logger.info("Job posting with ID {} deleted successfully", id);
+    }
+
     private Company findCompanyById(Long companyId) {
         try {
             logger.debug("Finding company with ID: {}", companyId);
