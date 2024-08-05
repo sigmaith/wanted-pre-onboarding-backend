@@ -34,7 +34,8 @@ public class JobPosting {
     private List<JobApplication> jobApplications;
 
     @Builder
-    public JobPosting(String position, int compensation, String content, String techStack, Company company) {
+    public JobPosting(Long id, String position, int compensation, String content, String techStack, Company company) {
+        this.id = id;
         this.position = position;
         this.compensation = compensation;
         this.content = content;

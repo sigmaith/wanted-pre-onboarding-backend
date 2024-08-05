@@ -21,4 +21,7 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<JobPosting> jobPostings;
 
+    public void setJobPostings(List<JobPosting> jobPostings) {
+        this.jobPostings = jobPostings;
+    }
 }
