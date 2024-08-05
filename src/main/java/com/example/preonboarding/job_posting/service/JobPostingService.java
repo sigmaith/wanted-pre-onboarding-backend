@@ -5,6 +5,7 @@ import com.example.preonboarding.common.exception.JobPostingNotFoundException;
 import com.example.preonboarding.company.domain.Company;
 import com.example.preonboarding.company.repository.CompanyRepository;
 import com.example.preonboarding.job_posting.domain.JobPosting;
+import com.example.preonboarding.job_posting.dto.JobPostingDetailsResponseDto;
 import com.example.preonboarding.job_posting.dto.JobPostingResponseDto;
 import com.example.preonboarding.job_posting.dto.JobPostingUpdateDto;
 import com.example.preonboarding.job_posting.repository.JobPostingRepository;
@@ -71,6 +72,19 @@ public class JobPostingService {
                 .collect(Collectors.toList());
     }
 
+    public JobPostingDetailsResponseDto getJobPostingDetails(Long id) {
+        logger.debug("Getting job posting details with ID: {}", id);
+        JobPosting jobPosting = findJobPostingById(id);
+        Company company = jobPosting.getCompany();
+
+        List<Long> otherJobPostings = company.getJobPostings().stream()
+                .map(JobPosting::getId)
+                .filter(postingId -> !postingId.equals(id))
+                .collect(Collectors.toList());
+
+        return convertToDetailDto(otherJobPostings, jobPosting, company);
+    }
+
     private Company findCompanyById(Long companyId) {
         try {
             logger.debug("Finding company with ID: {}", companyId);
@@ -102,6 +116,19 @@ public class JobPostingService {
                 jobPosting.getPosition(),
                 jobPosting.getCompensation(),
                 jobPosting.getTechStack()
+        );
+    }
+    private JobPostingDetailsResponseDto convertToDetailDto(List<Long> otherJobPostings, JobPosting jobPosting, Company company) {
+        return new JobPostingDetailsResponseDto(
+                jobPosting.getId(),
+                company.getName(),
+                company.getCountry(),
+                company.getRegion(),
+                jobPosting.getPosition(),
+                jobPosting.getCompensation(),
+                jobPosting.getTechStack(),
+                jobPosting.getContent(),
+                otherJobPostings
         );
     }
 }

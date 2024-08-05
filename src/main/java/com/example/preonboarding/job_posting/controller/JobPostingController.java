@@ -1,5 +1,6 @@
 package com.example.preonboarding.job_posting.controller;
 import com.example.preonboarding.job_posting.dto.JobPostingCreateDto;
+import com.example.preonboarding.job_posting.dto.JobPostingDetailsResponseDto;
 import com.example.preonboarding.job_posting.dto.JobPostingResponseDto;
 import com.example.preonboarding.job_posting.dto.JobPostingUpdateDto;
 import com.example.preonboarding.job_posting.service.JobPostingService;
@@ -67,5 +68,17 @@ public class JobPostingController {
             jobPostings = jobPostingService.searchJobPostings(search);
         }
         return ResponseEntity.ok(jobPostings);
+    }
+
+    /**
+     * 채용 공고의 상세 정보를 조회합니다.
+     *
+     * @param id 조회할 채용 공고 ID
+     * @return 채용 공고의 상세 정보
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<JobPostingDetailsResponseDto> getJobPostingDetails(@PathVariable Long id) {
+        JobPostingDetailsResponseDto details = jobPostingService.getJobPostingDetails(id);
+        return ResponseEntity.ok(details);
     }
 }
