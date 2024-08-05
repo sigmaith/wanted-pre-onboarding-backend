@@ -12,4 +12,9 @@ public class GlobalExceptionHandler{
     public ResponseEntity<String> handleCompanyNotFoundException(CompanyNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(JobPostingNotFoundException.class)
+    public ResponseEntity<String> handleJobPostingNotFoundException(JobPostingNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
