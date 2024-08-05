@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class JobPosting {
@@ -33,4 +32,20 @@ public class JobPosting {
 
     @OneToMany(mappedBy = "jobPosting")
     private List<JobApplication> jobApplications;
+
+    @Builder
+    public JobPosting(String position, int compensation, String content, String techStack, Company company) {
+        this.position = position;
+        this.compensation = compensation;
+        this.content = content;
+        this.techStack = techStack;
+        this.company = company;
+    }
+
+    public void update(String position, int compensation, String content, String techStack) {
+        this.position = position;
+        this.compensation = compensation;
+        this.content = content;
+        this.techStack = techStack;
+    }
 }
